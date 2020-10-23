@@ -18,15 +18,12 @@
  * sumOdds([1, 2, 3, 4, 5, 6, 7, 8, 9]) -> 25
  * sumOdds([3, 7, 8, 15, 2, 1, 13]) -> 39
  */
+
 function sumOdds(numbers) {
   // Your code here
-  let sum = 0
-  numbers.forEach((element) => {
-    if (element % 2 !== 0) {
-      sum += element
-    }
-  })
-  return sum
+  return numbers.reduce((sum, element) =>
+    element % 2 !== 0 ? sum + element : sum
+  )
 }
 
 /**
@@ -43,13 +40,13 @@ function sumOdds(numbers) {
  */
 function characterCount(string, c) {
   // Your code here
-  let counter = 0
-  for (let i = 0; i < string.length; i++) {
-    if (c === string.charAt(i)) {
-      counter++
-    }
-  }
 
+  let counter = 0
+  string
+    .split('')
+    .forEach((element, i) =>
+      c.toLowerCase() === element.toLowerCase() ? counter++ : counter
+    )
   return counter
 }
 
@@ -70,6 +67,9 @@ function characterCount(string, c) {
  */
 function differences(numbers) {
   // Your code here
+  let myArray = numbers.map((num, i) => numbers[i + 1] - num)
+  myArray.pop()
+  return myArray
 }
 
 /**
@@ -90,6 +90,9 @@ function differences(numbers) {
  */
 function largestIncrement(numbers) {
   // Your code here
+  return numbers.reduce((max, num, i) =>
+    max > num - numbers[i - 1] ? max : num - numbers[i - 1]
+  )
 }
 
 /**
@@ -105,13 +108,7 @@ function largestIncrement(numbers) {
  */
 function afterX(numbers, x) {
   // Your code here
-  let myArray = []
-  for (let i = 0; i < numbers.length; i++) {
-    if (numbers[i] === x && i !== numbers.length - 1) {
-      myArray.push(numbers[i + 1])
-    }
-  }
-  return myArray
+  return numbers.slice(numbers.indexOf(x) + 1)
 }
 
 /**
@@ -129,7 +126,6 @@ function abbreviate(firstName, lastName) {
   // Your code here
   return firstName[0].toUpperCase() + lastName[0].toUpperCase()
 }
-
 /**
  * isUpperCase(string):
  * - receives a string
@@ -142,6 +138,7 @@ function abbreviate(firstName, lastName) {
  */
 function isUpperCase(string) {
   // Your code here
+  return string.split('').reduce((acc, s) => acc && s.toUpperCase() === s)
 }
 
 /**
@@ -156,6 +153,7 @@ function isUpperCase(string) {
  */
 function elementInArray(numbers, x) {
   // Your code here
+  return numbers.includes(x)
 }
 
 /**
@@ -175,12 +173,12 @@ function reverseString(string) {
 
 console.log(sumOdds([3, 7, 8, 15, 2, 1, 13]))
 console.log(characterCount('Character Count is clever', 'c'))
-// console.log(differences([11, 35, 52, 14, 56]));
-// console.log(largestIncrement([11, 35, 52, 14, 56, 601, 777, 888, 999]));
+console.log(differences([11, 35, 52, 14, 56]))
+console.log(largestIncrement([11, 35, 52, 14, 56, 601, 777, 888, 999]))
 console.log(afterX([1, 2, 3, 4, 5, 6, 7, 8, 9], 3))
 console.log(abbreviate('miss', 'Stephane'))
-// console.log(isUpperCase("JCREW"));
-// console.log(elementInArray([5, 6, 7], 8));
+console.log(isUpperCase('JCREW'))
+console.log(elementInArray([5, 6, 7], 8))
 console.log(reverseString('CODED'))
 
 module.exports = {
